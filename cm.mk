@@ -1,5 +1,33 @@
 LOCAL_PATH := device/Meizu/M463U_Meizu
 
+# USB
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+persist.sys.usb.config=mtp
+
+PRODUCT_PACKAGES += \
+Torch
+
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+
+
+# Telecom
+PRODUCT_COPY_FILES += \
+$(LOCAL_PATH)/configs/apns-conf.xml:system/etc/apns-conf.xml \
+# GPS
+PRODUCT_COPY_FILES += \
+$(LOCAL_PATH)/configs/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml
+# Keylayout
+PRODUCT_COPY_FILES += \
+$(LOCAL_PATH)/configs/mtk-kpd.kl:system/usr/keylayout/mtk-kpd.kl \
+$(LOCAL_PATH)/configs/mtk-tpd.kl:system/usr/keylayout/mtk-tpd.kl
+# Thermal
+PRODUCT_COPY_FILES += \
+$(LOCAL_PATH)/configs/.ht120.mtc:system/etc/.tp/.ht120.mtc \
+$(LOCAL_PATH)/configs/thermal.conf:system/etc/.tp/thermal.conf \
+$(LOCAL_PATH)/configs/thermal.off.conf:system/etc/.tp/thermal.off.conf \
+$(LOCAL_PATH)/configs/thermal.high.conf:system/etc/.tp/thermal.high.conf \
+$(LOCAL_PATH)/configs/thermal.low.conf:system/etc/.tp/thermal.low.conf \
+
 
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi 
 
@@ -7,8 +35,21 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
+-include $(LOCAL_PATH)/system_prop.mk
+
+ PRODUCT_BUILD_PROP_OVERRIDES += \
+BUILD_FINGERPRINT=OPPO/N5206/N3:4.4.4/KTU84P/1415366188:user/release-keys \
+PRIVATE_BUILD_DESC="msm8974-user 4.4.4 KTU84P eng.root.20141129.010050 dev-keys"
+
 PRODUCT_COPY_FILES += \
 $(LOCAL_PATH)/kernel:kernel \
+
+ $(call inherit-product, vendor/cm/config/common_full.mk)
+ $(call inherit-product, vendor/cm/config/telephony.mk)
+ $(call inherit-product, vendor/cm/config/common.mk)
+ $(call inherit-product, vendor/cm/config/themes_common.mk)
+ $(call inherit-product, vendor/cm/build/core/config.mk)
+ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_PACKAGES += \
 com.android.future.usb.accessory \
