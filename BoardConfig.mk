@@ -1,6 +1,6 @@
-DEVICE_FOLDER := device/Meizu/M463U_Meizu
-# inherit from the proprietary version
+DEVICE_FOLDER := device/meizu/m1
 
+TARGET_OTA_ASSERT_DEVICE := m1
 
 TARGET_NO_BOOTLOADER := true
 
@@ -10,6 +10,8 @@ TARGET_BOARD_PLATFORM := mt6752
 TARGET_BOARD_PLATFORM_GPU := mali-t760mp2
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_VARIANT := cortex-a53
+MTK_BOARD_PLATFORMS := mt6752
+
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
@@ -85,7 +87,7 @@ TARGET_NO_RADIOIMAGE := true
 #TARGET_NO_RECOVERY := true
 
 TARGET_PREBUILT_KERNEL := $(DEVICE_FOLDER)/kernel
-TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/recovery.fstab
+
 #BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_FOLDER)/mkmtkbootimg.mk
 BOARD_HAS_MTK := true
 BOARD_USE_LEGACY_TOUCHSCREEN := true
@@ -98,28 +100,14 @@ TARGET_KMODULES := true
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 #
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_FOLDER)/boot.mk
+TARGET_RECOVERY_FSTAB := $(DEVICE_FOLDER)/root/recovery.fstab
 
-BOARD_MTK_LIBSENSORS_NAME :=
-BOARD_MTK_LIB_SENSOR :=
-# MTK, Baochu Wang, 20101130, Add A-GPS {
-ifeq ($(MTK_AGPS_APP), yes)
-BOARD_AGPS_SUPL_LIBRARIES := true
-else
-BOARD_AGPS_SUPL_LIBRARIES := false
-endif
-
-# MTK, Baochu Wang, 20101130, Add A-GPS }
-ifeq ($(MTK_GPS_SUPPORT), yes)
-BOARD_GPS_LIBRARIES := true
-else
-BOARD_GPS_LIBRARIES := false
-endif
-
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_FOLDER)/include
 #HAVE_SELINUX := true
 
 BOARD_SEPOLICY_DIRS := \
-device/Meizu/M463U_Meizu/sepolicy
+device/meizu/m1/sepolicy
 
 BOARD_SEPOLICY_UNION := \
 device.te \

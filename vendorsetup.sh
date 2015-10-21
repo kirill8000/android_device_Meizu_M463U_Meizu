@@ -1,3 +1,4 @@
-# This script for lunch
 
-add_lunch_combo cm-userdebug
+add_lunch_combo cm_m1-user
+add_lunch_combo cm_m1-userdebug
+add_lunch_combo cm_m1-eng
